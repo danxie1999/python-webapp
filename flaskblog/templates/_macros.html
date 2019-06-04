@@ -1,0 +1,17 @@
+
+{% macro render_field(field) %}
+	<div class="form-group">
+	{{field.label(class="form-control-label")}}
+	{# 如果validation中有错误，input变红，下面出现错误信息#}
+	{% if field.errors %}
+		{{field(class="form-control form-control-lg is-invalid")}}
+		<div class="invalid-feedback">
+			{% for error in field.errors %}
+				<span>{{ error }}</span>
+			{% endfor %}
+		</div>			
+	{% else %}
+		{{field(class="form-control form-control-lg")}}
+	{% endif %}
+	</div>
+{% endmacro %}

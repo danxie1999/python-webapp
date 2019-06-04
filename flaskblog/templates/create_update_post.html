@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% from "_macros.html" import render_field %}
+{% block content %}
+	<div class="content-section">
+		<form method="POST" action="" enctype="multipart/form-data">
+			{{ form.csrf_token }}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">{{ legend }}</legend>
+				{{render_field(form.title)}}
+				{{render_field(form.content)}}
+				<div class="form-group">
+					{{form.picture.label(class="form-control-label")}}
+					{{form.picture(class="form-control-file")}}
+					{% if form.picture.errors %}
+						{% for error in form.picture.errors %}
+						<span class="text-danger">{{ error }}</span>
+						</br>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</fieldset>
+			<div class="form-group">
+				{{form.submit(class="btn btn-outline-info")}}
+			</div>		
+		</form>
+	</div>
+{% endblock content %}

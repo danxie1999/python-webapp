@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+	{% for post in posts.items %}
+	<article class="media content-section">
+	<img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file ) }}">
+	  <div class="media-body">
+	    <div class="article-metadata">
+	      <a class="mr-2" href="{{url_for('users.user_posts',username=post.author.username)}}">{{ post.author.username }}</a>
+	      <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+	    </div>
+	    <h2><a class="article-title" href="{{url_for('posts.post_detail',post_id=post.id)}}">{{ post.title }}</a></h2>
+	    <p class="article-content">{{ post.content }}</p>
+	    {% if post.image_file %}
+			<img class="img-fluid" src="{{url_for('static',filename='post_pics/' + post.image_file)}}" alt="Generic placeholder image" width="700px" height="700px">	    
+	    {% endif %}
+	  </div>
+	</article>
+	{% endfor %}
+
+	{# 页数的section #}
+	<nav aria-label="...">
+	  <ul class="pagination">
+	  	{# 显示最左边一个，最右边一个，当前页的左右各一个#}
+	  	{% for page_num in posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
+	  	  {% if page_num %}
+	  	    {# 如果是当前页 点亮#}
+	  	    {% if page_num == posts.page %}
+	          <li class="page-item active">
+	          <a class="page-link" href="{{url_for('main.home',page=page_num)}}"> {{page_num}} <span class="sr-only">(current)</span></a>
+	          </li>
+	        {% else %}
+	          <li class="page-item"><a class="page-link" href="{{url_for('main.home',page=page_num)}}">{{page_num}}</a></li>
+	        {% endif %}
+	      {% else %}
+	        ...
+	      {% endif %}
+	    {% endfor %}
+	  </ul>
+	</nav>
+{% endblock content %}

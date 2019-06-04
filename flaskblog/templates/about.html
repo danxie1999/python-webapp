@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h1>同源策略测试</h1>
+	<div class="embed-responsive embed-responsive-16by9">
+  		<iframe name="ifame1" class="embed-responsive-item" src="http://127.0.0.1:5000/register/" allowfullscreen></iframe>
+	</div>
+	<br>
+	<input type="button" onclick="go()" value="密码->">
+	<script>
+		function go(){
+			try{
+				var x = ifame1.document.form1.password.value;
+				document.getElementById('out').innerHTML =x;
+			} catch (e){
+				alert(e.message);
+			}
+		}
+	</script>
+	<span id="out"></span>
+{% endblock content %}

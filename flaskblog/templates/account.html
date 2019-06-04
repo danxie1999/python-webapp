@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% from "_macros.html" import render_field %}
+{% block content %}
+	<div class="content-section">
+	  <div class="media">
+	    <img class="rounded-circle account-img" src="{{image_file}}">
+	    <div class="media-body">
+	      <h2 class="account-heading">{{current_user.username}}</h2>
+	      <p class="text-secondary">{{current_user.email}}</p>
+	    </div>
+	  </div>
+		<form method="POST" action="" enctype="multipart/form-data">
+			{{ form.csrf_token }}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">User Profile</legend>
+				{{render_field(form.username)}}
+				{{render_field(form.email)}}
+				{# 上传文件部分 #}
+				<div class="form-group">
+					{{form.picture.label(class="form-control-label")}}
+					{{form.picture(class="form-control-file")}}
+					{% if form.picture.errors %}
+						{% for error in form.picture.errors %}
+						<span class="text-danger">{{ error }}</span>
+						</br>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</fieldset>
+			<div class="form-group">
+				{{form.submit(class="btn btn-outline-info")}}
+			</div>
+		</form>
+	</div>
+{% endblock content %}

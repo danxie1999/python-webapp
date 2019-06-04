@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h1>XSS测试</h1>
+
+	<form action="" method="GET">
+		<input type="text" name="item" value="{{_POST}}">
+		<input type="submit" value="搜索">
+	</form>
+	{% if MESSAGE %}
+		{{MESSAGE|safe}}
+	{% endif %}
+{% endblock content %}
